@@ -15,16 +15,17 @@
     "test:watch": "vitest --watch"
   },
   "dependencies": {
-    "@emotion/react": "^11.0.0",
-    "@emotion/styled": "^11.0.0",
-    "@mui/material": "^6.4.2",
+    "@emotion/react": "^11.14.0",
+    "@emotion/styled": "^11.14.1",
+    "@mui/icons-material": "^5.18.0",
+    "@mui/material": "^5.18.0",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
     "react-router-dom": "^6.26.2"
   },
   "devDependencies": {
-    "@learn-co-curriculum/jest-learn-reporter": "^0.1.0",
     "@eslint/js": "^9.9.0",
+    "@learn-co-curriculum/jest-learn-reporter": "^0.1.0",
     "@testing-library/jest-dom": "^6.5.0",
     "@testing-library/react": "^16.0.1",
     "@testing-library/user-event": "^14.5.2",
@@ -40,5 +41,8 @@
     "vite": "^5.4.1",
     "vitest": "^2.0.5",
     "whatwg-fetch": "^3.6.2"
-  }
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
 }

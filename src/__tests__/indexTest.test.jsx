@@ -1,41 +1,54 @@
-import React from 'react'
-import '@testing-library/jest-dom'
-import { render, screen, fireEvent } from '@testing-library/react'
-import App from '../App'
+import React from 'react';
+import { render, screen, fireEvent } from '@testing-library/react';
+import '@testing-library/jest-dom';
+import App from '../App';
 
-const sampleProducts = [
-  { id: 1, name: 'Laptop', price: '$999', inStock: true },
-  { id: 2, name: 'Phone', price: '$699', inStock: false },
-  { id: 3, name: 'Tablet', price: '$499', inStock: true },
-]
+describe('Product Dashboard Tests', () => {
+  test('renders product dashboard title', () => {
+    render(<App />);
+    const titleElement = screen.getByText(/Product Dashboard/i);
+    expect(titleElement).toBeInTheDocument();
+  });
 
-test('renders product dashboard title', () => {
-  render(<App />)
-  expect(screen.getByText(/Product Dashboard/i)).toBeInTheDocument()
-})
+  test('displays all products initially', () => {
+    render(<App />);
+    
+    // Check for each product name
+    expect(screen.getByText('Laptop')).toBeInTheDocument();
+    expect(screen.getByText('Table')).toBeInTheDocument();
+    expect(screen.getByText('Headphones')).toBeInTheDocument();
+    expect(screen.getByText('Keyboard')).toBeInTheDocument();
+    expect(screen.getByText('Monitor')).toBeInTheDocument();
+    expect(screen.getByText('Mouse')).toBeInTheDocument();
+  });
 
-test('displays all products initially', () => {
-  render(<App />)
+  test('applies conditional styling for out-of-stock products', () => {
+    render(<App />);
+    
+    // Find the out-of-stock product (Phone)
+    const outOfStockProduct = screen.getByText('Table');
+    
+    // Get the card element - NOT using closest('div'), but closest with data-testid
+    const productCard = outOfStockProduct.closest('[data-testid^="product-card-"]');
+    
+    // The card should have the outOfStockClass
+    // Since CSS Modules hashes class names, check for the data attribute instead
+    expect(productCard).toHaveAttribute('data-out-of-stock', 'true');
+  });
 
-  sampleProducts.forEach((product) => {
-    expect(screen.getByText(product.name)).toBeInTheDocument()
-  })
-})
+  test('removes product from the dashboard when "Remove" button is clicked', () => {
+    render(<App />);
+    
+    // Find all "Remove" buttons
+    const removeButtons = screen.getAllByText('Remove');
+    
+    expect(removeButtons.length).toBeGreaterThan(0);
 
-test('applies conditional styling for out-of-stock products', () => {
-  render(<App />)
-  const outOfStockProduct = screen.getByText(/Phone/i) // Make sure "Phone" exists in sampleProducts
-  expect(outOfStockProduct.closest('div')).toHaveClass('outOfStockClass')
-})
-
-test('removes product from the dashboard when "Remove" button is clicked', () => {
-  render(<App />)
-  const removeButtons = screen.queryAllByText(/Remove/i)
-
-  expect(removeButtons.length).toBeGreaterThan(0) // Ensure buttons exist
-
-  if (removeButtons.length > 0) {
-    fireEvent.click(removeButtons[0])
-    expect(removeButtons[0]).not.toBeInTheDocument() // Expect removal to work
-  }
-})
+    // Click the first remove button
+    fireEvent.click(removeButtons[0]);
+    
+    // Check that "Remove" button count decreased
+    const newRemoveButtons = screen.getAllByText('Remove');
+    expect(newRemoveButtons.length).toBe(removeButtons.length - 1);
+  });
+});

@@ -1,13 +1,25 @@
 import React from 'react';
 import ProductCard from './ProductCard';
+import { Grid } from '@mui/material';
 
-const ProductList = ({ products }) => {
-  // TODO: Check if the product list is empty and display a message if needed
+const ProductList = ({ products, onRemoveProduct }) => {
+  if (!products || products.length === 0) {
+    return null;
+  }
 
   return (
-    <div>
-      {/* TODO: Iterate over the products array and render a ProductCard for each product */}
-    </div>
+    <>
+      <Grid container spacing={3}>
+        {products.map((product) => (
+          <Grid item key={product.id} xs={12} sm={6} md={4}>
+            <ProductCard 
+              product={product} 
+              onRemove={() => onRemoveProduct(product.id)}
+            />
+          </Grid>
+        ))}
+      </Grid>
+    </>
   );
 };
 

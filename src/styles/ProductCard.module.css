@@ -1,3 +1,50 @@
 /* TODO: Style the product card container */
 
 /* TODO: Add special styling for out-of-stock products */
+.productCard {
+    transition: all 0.3s ease;
+    border-radius: 8px;
+    overflow: hidden;
+    border: 2px solid transparent;
+  }
+  
+  .productCard:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+    border-color: #1976d2;
+  }
+  
+  .outOfStockClass {
+    opacity: 0.7;
+    border-color: #f44336;
+    background: linear-gradient(
+      135deg,
+      rgba(244, 67, 54, 0.05) 0%,
+      rgba(244, 67, 54, 0.02) 100%
+    );
+  }
+  
+  .outOfStockClass:hover {
+    border-color: #d32f2f;
+  }
+  
+  .productCard .MuiCardContent-root {
+    padding: 20px;
+  }
+  
+  .productCard .MuiTypography-h5 {
+    font-weight: 600;
+    color: #333;
+  }
+  
+  .productCard .MuiTypography-h4 {
+    font-size: 1.75rem;
+    font-weight: 700;
+  }
+  
+  .productCard .MuiButton-root {
+    font-weight: 600;
+    text-transform: none;
+    padding: 10px 16px;
+    border-radius: 6px;
+  }
